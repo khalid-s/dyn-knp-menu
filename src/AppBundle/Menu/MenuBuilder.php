@@ -1,6 +1,6 @@
 <?php
 
-namespace IKNSA\CMSBundle\MenuBundle\Menu;
+namespace AppBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -15,24 +15,15 @@ class MenuBuilder implements ContainerAwareInterface
     {
         $main = $factory->createItem('root');
         
+        // End result
+        // $main->addChild('Layout',array('route' => 'menu_index'));
+        // $main['Layout']->addChild('Node',array('route' => 'menu_index'));
+        // $main['Layout']['Node']->addChild('Slider',array('route' => 'menu_index'));
+
         $em = $this->container->get('doctrine')->getManager();
 
-        $menus = $em->getRepository('IKNSACMSBundleMenuBundle:Menu')->getMenusOrderByLevel();
+        $menus = $em->getRepository('AppBundle:Menu')->findAll();
 
         return $main;
-    }
-
-    public function getName($menuItem)
-    {
-        return $menuItem->getName();
-    }
-
-    public function getOptions()
-    {
-    }
-
-    public function getChildren($menuItem)
-    {
-        return $menuItem->getChildren();
     }
 }

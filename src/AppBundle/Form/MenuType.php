@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class MenuType extends AbstractType
 {
@@ -18,7 +19,11 @@ class MenuType extends AbstractType
             ->add('name')
             ->add('url')
             ->add('options')
-            ->add('parent')
+            ->add('parent', EntityType::class, array(
+                'class' => 'AppBundle:Menu',
+                'choice_label' => 'name',
+                'required' => false
+            ))
         ;
     }
     
